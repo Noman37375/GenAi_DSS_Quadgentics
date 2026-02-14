@@ -50,7 +50,33 @@ Recommended sequence (dependencies first):
 
 Per-character memory: **knowledge**, **inventory**, and **perceptions of others** (Problem Statement 3.3).
 
-### Steps
+### 3.1 Current conversation dialogue context (own + other party)
+
+**Purpose:** When a character’s turn comes, provide structured context so responses stay logical and consistent:
+- **This character’s own previous dialogues** in the current conversation only.
+- **The other party’s previous dialogues** in the current conversation only (the person they are talking to, e.g. last speaker or primary interlocutor).
+
+Right now the code sends one mixed “Recent Dialogue” (everyone’s last N turns). Splitting into “your lines” and “their lines” improves coherence.
+
+**Steps:**
+
+1. **Use existing `dialogue_history`** — No new storage needed; filter `state.dialogue_history` (current conversation) by speaker.
+2. **Build two context sections when building the character prompt:**
+   - **Your previous lines in this conversation:** Filter `dialogue_history` where `turn.speaker == current_character_name`. Format as a list (e.g. turn number + your dialogue). Cap to last N of their own lines if needed (e.g. last 10).
+   - **What they said (person you’re talking to):** Decide “the other party” — e.g. the **last speaker** in the conversation (so the current character is “replying to” them), or the character who spoke most recently before this turn. Filter `dialogue_history` where `turn.speaker == other_party_name`. Format similarly. Cap to last N of their lines.
+3. **Optional: “other party” logic** — If multiple characters speak in sequence, “the person you’re talking to” can be: (a) the last speaker, or (b) the Director’s “last selected speaker” (already in state). Use that name to filter their dialogues.
+4. **Pass both sections into the character prompt** in `_character_respond_node` (or in `get_context_for_character()` if the graph calls it). Use clear labels, e.g.:
+   - `Your previous lines in this conversation: ...`
+   - `What [OtherPartyName] said in this conversation: ...`
+5. **Keep full “Recent Dialogue” optional** — You can still include a short “Full recent dialogue” (last 5–10 turns) for flow, but the two sections above should be the primary context for consistency.
+
+**Files to touch:**
+
+- `src/graph/narrative_graph.py` — In `_character_respond_node`, build `your_previous_lines` and `other_party_lines` from `state.dialogue_history` (filter by speaker), then pass into context string. Optionally call a helper in `story_state.py`.
+- `src/story_state.py` — Optionally add helpers e.g. `get_own_dialogues_for_character(character_name, dialogue_history, max_turns)` and `get_other_party_dialogues(other_party_name, dialogue_history, max_turns)` and use them when building context.
+- `src/prompts/character_prompts.py` — Ensure prompt has placeholders or sections for “Your previous lines in this conversation” and “What [X] said in this conversation”.
+
+### Steps (general character memory)
 
 1. **Extend `CharacterProfile`** (`src/schemas.py`)
    - Add optional `goals: List[str] = []`
@@ -91,15 +117,18 @@ Per-character memory: **knowledge**, **inventory**, and **perceptions of others*
 
 Non-verbal actions that **change Story State**; at least **5 distinct actions** per run (Problem Statement 3.3 & 4).
 
+**Purpose:** Break dialogue loops and push the narrative forward when talk alone is not enough.
+
 ### Steps
 
 1. **Define action schema** (`src/schemas.py` or `src/actions.py`)
-   - Example types: `Search_Object`, `Trade_Item`, `Give_Item`, `Use_Item`, `Unlock_Door`, `Take_Item`.
+   - Example types: `Search_Object`, `Trade_Item`, `Give_Item`, `Use_Item`, `Unlock_Door`, `Take_Item` (and story-specific ones like `Offer_Bribe`, `Refuse_Bribe`, `Betray_Ally`, `Write_Challan`).
    - Model: e.g. `Action(type: str, target: Optional[str], description: Optional[str])`.
-   - Document which actions are valid in the story (e.g. rickshaw scenario: give money, take phone, offer bribe, write challan).
+   - **Actions must be defined per story and character context** — choose types that fit the scenario and personas (e.g. rickshaw scenario: give money, take phone, offer bribe, write challan; other stories might use BetrayAlly, UnlockDoor, SearchObject, etc.).
+   - Document which actions are valid in the story and how they affect the world.
 
 2. **Extend `StoryState` for world/action effects**
-   - e.g. `world_state: Dict[str, Any]` (e.g. `{"bribe_offered": False, "challan_written": False}`).
+   - e.g. `world_state: Dict[str, Any]` (e.g. `{"bribe_offered": False, "challan_written": False}`, `"box_opened": True, "key_found": True`).
    - Character inventories should be updated when actions like Give/Take/Trade run (can live in `character_memories` or a dedicated `character_inventories: Dict[str, List[str]]`).
 
 3. **Action execution logic**
@@ -115,7 +144,10 @@ Non-verbal actions that **change Story State**; at least **5 distinct actions** 
      - `content` or `action_type` + `target`
      - `turn`
 
-5. **Enforce ≥5 actions**
+5. **World updates carry into future turns — other agents react accordingly**
+   - After an action updates `world_state` (e.g. “box opened → key found”), that state must be **included in the context given to all characters on future turns**. So when building prompts for Director and Character agents, pass the current `world_state` (and/or a short “What has happened so far” summary of action outcomes). This way other agents see what changed and can react (e.g. “Raza took the bribe” → others can refer to it in dialogue or take new actions).
+
+6. **Enforce ≥5 actions**
    - Before calling Director’s `check_conclusion`, ensure `count(events where type == "action") >= 5`, or pass this into the Director prompt so it avoids ending too early.
 
 ### Files to Touch
@@ -125,6 +157,7 @@ Non-verbal actions that **change Story State**; at least **5 distinct actions** 
 - `src/graph/narrative_graph.py` — after “character_respond” or new “character_act” node: parse action, execute, append event
 - `src/agents/character_agent.py` — character can output action (see Reasoning Layer)
 - Director prompts — optionally mention “ensure at least 5 actions in the story”
+- Context building (e.g. `story_state.py`, `narrative_graph.py`, character/director prompts) — include current `world_state` and action outcomes so **all agents** on future turns can react.
 
 ---
 
@@ -214,10 +247,13 @@ Use this to track progress:
 - [ ] **Schemas**: `CharacterProfile` has `goals` and `inventory`; `StoryState` has memory and/or world_state; Action model defined.
 - [ ] **Character configs**: `character_configs.json` includes goals and inventory per character.
 - [ ] **Memory**: Per-character memory populated and used in `get_context_for_character` and prompts.
-- [ ] **Actions**: Action types defined; execution updates state; action events appended with `type: "action"`.
+- [ ] **Dialogue context (current conversation)**: When a character speaks, context includes (1) their own previous dialogues in this conversation and (2) the other party’s previous dialogues in this conversation (so responses stay logical).
+- [ ] **Actions**: Action types defined **per story and character context** (e.g. OfferBribe, BetrayAlly, WriteChallan for rickshaw); execution updates state; action events appended with `type: "action"`.
+- [ ] **World state in future turns**: Current `world_state` and action outcomes (e.g. “box opened → key found”) are passed in context to all agents on future turns so other agents can react accordingly.
 - [ ] **Reasoning**: Character prompt asks for decision (Talk/Act) and optional reasoning; agent returns structured output.
 - [ ] **Graph**: Branch on Talk vs Act; action path executes action and updates state and events.
 - [ ] **≥5 actions**: Logic ensures at least 5 actions before story can conclude.
+- [ ] **25 turns max**: Simulation respects max 25 turns (config + conclusion logic does not exceed it).
 - [ ] **story_output.json**: Top-level `conclusion` field added in `main.py`.
 - [ ] **README**: Run command, env, expected outputs, and “what we built” (memory, actions, reasoning).
 - [ ] **Technical Report**: PDF (LaTeX) with architecture, memory, actions, reasoning, and design rationale.
@@ -231,11 +267,11 @@ Use this to track progress:
 |------|---------|
 | `src/schemas.py` | DialogueTurn, CharacterProfile (goals, inventory), StoryState (memory, events, world_state), Action |
 | `src/config.py` | max_turns, max_context_length, max_tokens_per_prompt, temperature, optional memory limits |
-| `src/story_state.py` | StoryStateManager; get_context_for_character (memory, goals, inventory); memory update on turn/action |
+| `src/story_state.py` | StoryStateManager; get_context_for_character (memory, goals, inventory); optional helpers for own/other-party dialogue context; memory update on turn/action |
 | `src/agents/character_agent.py` | respond() returns or parses structured output (dialogue + optional action + reasoning) |
 | `src/agents/director_agent.py` | select_next_speaker, check_conclusion (consider “at least 5 actions” in prompt or logic) |
-| `src/graph/narrative_graph.py` | Nodes: director_select → character_respond (or character_act branch) → action execution → check_conclusion → conclude |
-| `src/prompts/character_prompts.py` | Include memory, goals, inventory; output format for Talk vs Act |
+| `src/graph/narrative_graph.py` | Nodes: director_select → character_respond (or character_act branch) → action execution → check_conclusion → conclude; build context with own + other-party dialogues (current conversation) |
+| `src/prompts/character_prompts.py` | Include memory, goals, inventory; sections for “Your previous lines” and “What [other] said”; output format for Talk vs Act |
 | `src/main.py` | Build output_data with top-level `conclusion`; write story_output.json, prompts_log.json |
 | `examples/rickshaw_accident/character_configs.json` | Add goals and inventory per character |
 

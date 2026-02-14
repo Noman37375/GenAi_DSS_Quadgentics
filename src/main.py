@@ -50,10 +50,11 @@ async def main():
     print(f"Title: {seed_story['title']}")
     print(f"Scenario: {seed_story['description']}\n")
     
-    # Run the game with the prepared character states
+    # Run the game with the prepared character states (including memory)
     final_state = await story_graph.run(
-        seed_story=seed_story, 
-        character_profiles=story_manager.state.character_profiles
+        seed_story=seed_story,
+        character_profiles=story_manager.state.character_profiles,
+        character_memories=story_manager.state.character_memories
     )
     
     # Print results
@@ -68,7 +69,13 @@ async def main():
     
     print(f"\n=== CONCLUSION ===")
     print(f"Ended after {final_state['current_turn']} turns")
-    print(f"Reason: {final_state.get('conclusion_reason')}")
+    print(f"\n--- Story Ending ---")
+    print(f"{final_state.get('conclusion_reason', 'No conclusion narration.')}")
+    print(f"--- End ---")
+
+    # Count actions in events
+    action_count = sum(1 for e in final_state.get("events", []) if e.get("type") == "action")
+    print(f"Total actions performed: {action_count}")
 
     # Save to JSON
     output_path = project_root / "story_output.json"
@@ -76,8 +83,10 @@ async def main():
         "title": seed_story.get("title"),
         "seed_story": seed_story,
         "events": final_state.get("events", []),
+        "conclusion": final_state.get("conclusion_reason"),
         "metadata": {
             "total_turns": final_state["current_turn"],
+            "total_actions": action_count,
             "conclusion_reason": final_state.get("conclusion_reason")
         }
     }

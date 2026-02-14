@@ -12,6 +12,14 @@ class DialogueTurn(BaseModel):
 class CharacterProfile(BaseModel):
     name: str
     description: str
+    goals: List[str] = Field(default_factory=list)
+    inventory: List[str] = Field(default_factory=list)
+
+class Action(BaseModel):
+    type: str
+    actor: str
+    target: Optional[str] = None
+    description: Optional[str] = None
 
 class StoryState(BaseModel):
     seed_story: Dict[str, Any]
@@ -24,3 +32,5 @@ class StoryState(BaseModel):
     next_speaker: Optional[str] = None
     is_concluded: bool = False
     conclusion_reason: Optional[str] = None
+    character_memories: Dict[str, List[str]] = Field(default_factory=dict)
+    world_state: Dict[str, Any] = Field(default_factory=dict)
