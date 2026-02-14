@@ -15,6 +15,9 @@ This file tracks every implemented feature, why it was implemented, and the exac
 - [x] **Anti-repetition hard enforcement**: Code-level block prevents same speaker more than max_consecutive times — LLM can't override.
 - [x] **min_turns hard enforcement**: Code-level block prevents conclusion before min_turns (10) — no more 9-turn stories.
 - [x] **Proper story ending**: Conclusion prompt requires detailed resolution with each character's fate, crowd, environment, and emotional beat.
+- [x] **No-double-turn**: max_consecutive changed to 1 — no character speaks twice in a row. Anti-PingPong prevents same 2 chars for 4+ turns.
+- [x] **Per-character language rules**: Saleem=95% Urdu, Raza=90% blunt Urdu, Jameel=95% dramatic Urdu, Ahmed=English-Urdu mix.
+- [x] **Story phases + dramatic twists**: Director follows 4-phase structure (Setup→Escalation→Complication→Resolution). min_turns=15, min_actions=7. Conclusion resists early ending.
 
 ---
 
@@ -438,6 +441,86 @@ Quality
 | Change | What was done |
 |--------|---------------|
 | Conclusion printing improved | Shows "Story Ending" section with the full conclusion narration instead of just "Reason: ..." |
+
+---
+
+## 15. No-Double-Turn Enforcement (max_consecutive = 1)
+
+**Why:** Even with hard code enforcement at `max_consecutive=2`, characters were speaking twice in a row (Run 5: Ahmed turns 9-10, Run 6: Saleem turns 5-6). This is because `max_consecutive=2` ALLOWS 2 consecutive turns. Changed to 1 so NO character can ever speak twice in a row.
+
+### Applied Changes
+
+**File: `src/config.py`**
+
+| Change | What was done |
+|--------|---------------|
+| `max_consecutive_same_character` | Changed from `2` to `1` — zero tolerance for double turns |
+
+---
+
+## 16. Per-Character Language Rules (Karachi Realism)
+
+**Why:** All characters were speaking too much English. Saleem (poor rickshaw driver with 200 rupees) was saying things like "I have a family to feed! Five children! My rickshaw is broken!" — this is unrealistic. A real Saleem would say "Bhai mere paanch bachche hain! Meri rickshaw toot gayi!" Each character now has strict language rules matching their education and social class.
+
+### Applied Changes
+
+**File: `src/prompts/character_prompts.py`**
+
+| Change | What was done |
+|--------|---------------|
+| `CHARACTER_LANGUAGE_RULES` dict (new) | Per-character language instructions with WRONG/RIGHT examples |
+| `get_language_rule()` function (new) | Returns language rule for a given character name |
+| Prompt now includes `{language_rule}` | Language rule injected prominently before other guidelines |
+| "FOLLOW YOUR LANGUAGE RULE STRICTLY" | Emphasized as most important instruction |
+| Anti-repetition in dialogue | Added "Do NOT repeat what you said in previous turns" |
+
+**Language Rules Per Character:**
+
+| Character | Language | Details |
+|-----------|----------|---------|
+| **Saleem** | 95% Roman Urdu | Only knows: please, sorry, sir, police, accident, rickshaw, BMW, phone. Street talk, broken sentences, emotional. |
+| **Ahmed Malik** | English-Urdu mix | Switches mid-sentence. More English when asserting authority, more Urdu when emotional/frustrated. |
+| **Constable Raza** | 90% blunt Urdu | Only job English: challan, license, report, impound. Barks orders. "Abe chabi de!" not "Please hand over the keys." |
+| **Uncle Jameel** | 95% dramatic Urdu | TV English only: phone, video, insurance, camera, Dubai. Loud, dramatic, lecturing. "Poora mohalla jaanta hai Jameel bhai kaun hai!" |
+
+---
+
+## 17. Story Length Variety + Dramatic Twists
+
+**Why:** Story was always ending at exactly min_turns (10) — no variation, no dramatic complications, no unexpected twists. Every run was: argument → offer → counter-offer → deal → end. Real Karachi street situations have complications: someone recognizes someone, a senior officer is coming, the crowd turns, a phone call changes everything. The story needs PHASES (setup → escalation → complication → resolution) and the Director needs to resist rushing to conclusion.
+
+### Applied Changes
+
+**File: `src/config.py`**
+
+| Change | What was done |
+|--------|---------------|
+| `min_turns` | Changed from `10` to `15` — story must run at least 15 turns |
+
+**File: `src/prompts/director_prompts.py`**
+
+| Change | What was done |
+|--------|---------------|
+| **Story Phases system** (new) | Director prompt now defines 4 phases: Setup (1-4), Escalation (5-9), Complication (10-15), Climax & Resolution (16-22) |
+| **Complication examples** | Director given specific twist ideas: someone recognizes Ahmed, Raza's senior is coming, Ahmed misses flight, crowd goes viral, Jameel's connection calls back |
+| **"DO NOT let story resolve too quickly"** | Explicit instruction to reject early offers, demand negotiation rounds |
+| **"Inject DRAMATIC MOMENTS"** | Director must add environmental events in narration: phone rings, bus honks, crowd shouts something unexpected |
+| `{current_turn}/{max_turns}` added | Director now sees which phase the story is in |
+| Conclusion prompt hardened | Must have 7+ actions, must have had a twist, must have 2-3 negotiation rounds, all 4 characters must have spoken 2+ times |
+
+**File: `src/agents/director_agent.py`**
+
+| Change | What was done |
+|--------|---------------|
+| `select_next_speaker()` | Now passes `current_turn` and `max_turns` to prompt |
+| Anti-PingPong enforcement (new) | If same 2 characters talked for last 4 turns, forces a third character to break the pattern |
+| `check_conclusion()` | Last turns shown increased to 10 (was 8); removed `min_turns` from prompt (enforced in code) |
+
+**File: `src/graph/narrative_graph.py`**
+
+| Change | What was done |
+|--------|---------------|
+| Minimum actions threshold | Changed from `5` to `7` — story needs more physical actions before it can end |
 
 ---
 

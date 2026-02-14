@@ -1216,3 +1216,272 @@ Prompts saved to C:\Users\user\Documents\GenAi_DSS\prompts_log.json
 PS C:\Users\user\Documents\GenAi_DSS> 
 
 """
+
+"""
+
+
+C:\Users\user\Documents\GenAi_DSS\.venv\Lib\site-packages\langchain_core\_api\deprecation.py:25: UserWarning: Core Pydantic V1 functionality isn't compatible with Python 3.14 or greater.
+  from pydantic.v1.fields import FieldInfo as FieldInfoV1
+Starting Narrative Game...
+Title: The Rickshaw Accident
+Scenario: Late afternoon on Shahrah-e-Faisal near Karachi Airport. Rush hour traffic gridlock. 40Â°C heat, humid, dust everywhere. A green rickshaw driven by Saleem has collided with Ahmed Malik's white BMW â€” the BMW has a visible dent on the left rear door, the rickshaw's front bumper is bent. Both drivers are out of their vehicles shouting. Horns blaring from backed-up traffic. A crowd of 15-20 people has already gathered, some recording on phones, others shouting opinions. A chai dhaba is right on the corner. Traffic police (known for asking bribes) are approaching. Nobody can move their vehicle until this is resolved. The crowd is getting restless â€” they want the road cleared but they also want to see justice. In Karachi, the crowd decides more than the police.
+
+********************************
+Director Narration: The air hangs thick and shimmering with heat, a haze of dust kicked up by the endless line of cars stretching as far as the eye can see. Horns blare a discordant symphony of frustration. The crowd, a swirling mass of curious onlookers, presses closer, phones held aloft like glowing offerings to the gods of social media. A few are already editing shaky videos, adding dramatic music. Ahmed Malik stands rigidly beside his BMW, his face reddening not just from the heat but from barely contained fury. He keeps glancing at his watch.
+
+Saleem, however, is already unraveling. He runs a hand through his greasy hair, his eyes darting between the dented bumper of his rickshaw and the damage to the BMW. He’s a small man, swallowed by the scale of the situation. He takes a shaky breath, then bursts out, his voice cracking with desperation, “Bhai! Sahab! Dekhiye na! Yeh toh meri zindagi hai! (Brother! Sir! Look! This is my life!) This rickshaw… this is how I feed my family! Five mouths to feed! How will I pay for this?” He gestures wildly at the BMW, then clutches his chest, his voice rising in pitch. A woman in the crowd shouts, “Dekho, dekho! Gareeb aadmi hai! (Look, look! He’s a poor man!)” Several heads nod in agreement.
+Next Speaker: Saleem
+********************************
+
+********************************
+Saleem: Arre bhai! Dekho toh! Kya karunga mein? Paanch bachche bhooke mareinge! Yeh rickshaw meri zindagi hai! Allah ke liye madad karo! Iske BMW ne meri rickshaw ko maar di! Sorry sir, lekin mein kya karunga? Police ko bulao toh woh bhi paisay lenge!
+  [ACTION] Show_Item (I frantically pull out my wallet, turn it inside out to show everyone it's almost empty, and then dramatically clutch my chest, starting to cry loudly.)
+********************************
+
+  >> Action executed: Saleem shows something to prove a point — I frantically pull out my wallet, turn it inside out to show everyone it's almost empty, and then dramatically clutch my chest, starting to cry loudly.
+********************************
+Director Narration: Saleem’s desperate plea hangs in the humid air, punctuated by a relentless chorus of horns. The crowd, a swirling mass of curious onlookers and armchair judges, presses closer. Sweat glistens on foreheads, and dust motes dance in the harsh afternoon light. A bus driver lays on his horn, a long, frustrated blast that seems to vibrate through the very ground. Ahmed Malik, face reddening, keeps glancing at his watch, muttering under his breath. He’s trying to maintain a facade of composure, but the tightening of his jaw betrays his anxiety.
+
+Suddenly, Uncle Jameel pushes his way through the throng, nearly knocking over a teenager filming with his phone. He plants himself between Saleem and Ahmed, arms outstretched like a traffic cop. "Arey, arey, arey! What is this commotion? Such badlaaav (revenge) for a small dent! Look at this poor man, his rickshaw is his everything! And you, Saab, a BMW? You should be more careful! I’ve seen worse accidents on this road, believe me. My cousin, DSP Rana, he told me…" He pauses for dramatic effect, adjusting his lungi. "…this road is cursed! Now, let’s be reasonable. Saleem beta, calm down. And you, Saab, show some insaniyat (humanity)! I’ll sort this out. I know everyone here, everyone!" He waves a hand dismissively at Ahmed. "Someone get me a chai, quickly! This requires thinking!" His shop helper scurries off towards the dhaba.
+Next Speaker: Uncle Jameel
+********************************
+
+********************************
+Uncle Jameel: Arre bhai! Dekho toh, dekho! Yeh jo Saab hain, unko toh sharam aani chahiye! Gareeb aadmi ki rickshaw ko maar di! Poora mohalla dekh raha hai! Inspector Farooq mera dost hai, kal hi usse mila tha! Agar tumhare insurance wale nahi aate toh mein unko bula leta! Suno, Saab, zara dekho toh, is rickshaw ka kya haal bana diya hai! Iske bachchon ka kya khayega? Arey, Aslam! Jaldi chai la! Aur thora meetha bhi le aa, Saab ko meetha khilaana chahiye, shayad dil pighle!     
+  [ACTION] Block_Vehicle → Ahmed Malik (I step directly in front of Ahmed Malik's BMW, arms outstretched, preventing him from getting back inside. I glare at him, daring him to try and move the car.)        
+********************************
+
+  >> Action executed: Uncle Jameel physically blocks Ahmed Malik's vehicle, preventing them from leaving.
+********************************
+Director Narration: Uncle Jameel’s pronouncements about Inspector Farooq hang in the air, momentarily silencing Saleem’s wails. The crowd, a swirling mass of curious faces and phone cameras, murmurs its approval of Jameel’s intervention. The heat is oppressive, a physical weight pressing down on everyone. Sweat glistens on foreheads, and the air smells of dust, exhaust fumes, and the sweet, cloying scent of chai being brewed at the dhaba. A bus driver lays on his horn, a long, frustrated blast that echoes off the buildings. Ahmed Malik, initially radiating impatience, now visibly fidgets. He glances repeatedly at his expensive watch, his face growing paler. He’s starting to realize that shouting and demanding won’t solve this; he needs to *manage* the situation. He takes a deep breath, attempting a tone of forced calm, but his voice still carries an edge of entitlement. "Look, I appreciate your concern, Uncle… but this is a matter for the police. I have a flight to catch. I’m willing to pay for the damage, of course, but let’s be reasonable. A dent is a dent. I don’t have time for theatrics."
+He pulls out his wallet, flashing a thick wad of Pakistani rupees, hoping to intimidate and expedite the process. A collective gasp ripples through the crowd – a mixture of envy and resentment. Someone shouts, “Dekho, dekho! Paisa bolta hai!” (Look, look! Money talks!).      
+Next Speaker: Ahmed Malik
+********************************
+
+********************************
+Ahmed Malik: Dekhiye, yaar, this is becoming…unnecessary. I understand the rickshaw is damaged, and I *am* willing to compensate Saleem sahib. But honestly, the delay is causing me a huge problem. I have a very important flight to Dubai – a business meeting, you understand? It’s a matter of… crores, dekhiye. I’m offering a fair amount, but this is becoming a bit of a…tamasha. Uncle Jameel, with all due respect, I appreciate your concern, but interfering like this isn’t helping anyone. Mujhe jaane do, please.
+  [ACTION] Call_Contact (I quickly pull out my smartphone and dial my lawyer, Mr. Khan, hoping he can somehow intervene or at least advise me on the legal implications of this situation.)
+********************************
+
+  >> Action executed: Ahmed Malik pulls out a phone and makes a call — I quickly pull out my smartphone and dial my lawyer, Mr. Khan, hoping he can somehow intervene or at least advise me on the legal implications of this situation.
+********************************
+Director Narration: Ahmed Malik’s dismissive tone hangs in the air, instantly inflaming the crowd. A chorus of ‘Shame!’ and ‘Dekho, dekho! Saab ko dekho!’ erupts. The heat is oppressive, shimmering off the asphalt and making the dust motes dance in the hazy sunlight. A bus driver lays on his horn, a long, frustrated blast that’s swallowed by the general cacophony. Saleem, seeing the crowd’s reaction, feels a surge of desperate hope. He clutches his chest, his face contorted with anguish. He dramatically points at the dent in the BMW, then at the bent bumper of his rickshaw.
+
+“Crores? Crores you talk about, Saab? And what about my crores? My family’s crores? This rickshaw *is* my crores! My children will starve! You fly to Dubai for business, I work day and night just to survive! You think a few rupees will fix this? This is my life you’ve broken!” He dramatically pulls out his empty wallet, turning it inside out for the crowd to see. A few women in the crowd begin to weep sympathetically. He takes a step towards Ahmed Malik, blocking his path slightly, his voice rising to a wail. “Allah ke liye, Saab! Have some mercy!”
+Next Speaker: Saleem
+********************************
+
+********************************
+Saleem: Arre sahab! Crores, crores tumhari zubaan pe! Mere paas toh rickshaw ke siva kuch bhi nahi hai! Dekho, dekho sab log! Is aadmi ne gareeb ka rickshaw tootwa diya! Allah ke liye, isko bolo kuch toh zimmedari lo! Police aayegi toh woh bhi mujhse hi paisay lenge! Sorry sir, lekin mein kya karunga?
+  [ACTION] Sit_On_Ground (I dramatically sit down on the hot asphalt, clutching my head and starting to sob loudly, hoping to garner more sympathy from the crowd and pressure Ahmed Malik.)
+********************************
+
+  >> Action executed: Saleem slumps down on the road in despair, drawing sympathy from the crowd.
+********************************
+Director Narration: The heat shimmers off the asphalt, distorting the already chaotic scene. Horns blare a relentless symphony of frustration. Dust devils swirl around the gathered crowd, coating everything in a fine grit. Saleem, still sitting cross-legged on the scorching pavement, clutches his head and sobs quietly, occasionally glancing up at Ahmed Malik with pleading eyes. Ahmed, sweating profusely despite his expensive suit, keeps checking his watch, his face a mask of barely contained fury. Uncle Jameel is in full flow, gesticulating wildly at Ahmed, his voice booming over the din. Several phones are pointed at Ahmed, recording his every move.
+
+Constable Raza, wiping sweat from his brow, pushes his way through the crowd, his uniform already stained with dust. He sizes up the situation – a dented BMW, a crippled rickshaw, a desperate driver, and a potentially lucrative opportunity. He stops directly in front of Ahmed, blocking his path. "Dekhiye Saab," Raza says, his voice gravelly and devoid of politeness, "This is causing a jam. A *big* jam. We need to sort this out quickly. What's the damage? How much are you offering the rickshaw driver? Don't waste my time with stories about Dubai and crores. I have other work to do… and a family to feed. Let's talk numbers. And quickly."
+Next Speaker: Constable Raza
+********************************
+
+********************************
+Constable Raza: Oye Saab! Crores, crores bolte raho! Yahan pe toh sirf reality hai. Insurance, report, challan – sab kuch hoga. Aur agar sab kuch theek se nahi hua toh gaari impound kar dunga. Suno, zara de kuch chai-pani ka intezaam karo, tabhi baat aage badhegi. Aur phone band karo sab! Koi video nahi banayega!
+  [ACTION] Confiscate_Keys → Ahmed Malik (I reach for Ahmed Malik's car keys, attempting to grab them from his hand to assert control.)   
+********************************
+
+  >> Action executed: Constable Raza snatches Ahmed Malik's vehicle keys.
+********************************
+Director Narration: Constable Raza’s demand for ‘chai-pani’ hangs in the air, met with grumbling from the crowd. The heat is oppressive, shimmering off the asphalt. Dust devils swirl with every passing bus, coating everyone in a fine grit. Saleem remains slumped on the ground, clutching his head, occasionally letting out a wail. Ahmed Malik is furiously checking his watch, his face reddening with each tick. The crowd is a sea of faces, phones still pointed, though some are lowering them slightly at the mention of the police. A chorus of ‘shame shame’ rises and falls. Aslam, Uncle Jameel’s shop helper, scurries off with a chipped enamel teapot and a plate of *jalebi*. Uncle Jameel, seizing the moment, pushes his way closer to Ahmed Malik, nearly knocking over a man filming with his phone. He waves a dismissive hand at Constable Raza.
+
+“Arre Raza *bhai*! What is this nonsense? Chai first, then talk! This *saab* is a guest in our Karachi! Show some respect! And *saab*,” he turns to Ahmed, his voice booming, “you are a businessman, yes? A smart man. You understand *izzat* – respect. You cannot simply crush a poor man’s livelihood and expect everything to be fine. Look at him! He is practically begging! A little generosity goes a long way. My cousin, DSP Qasim, he always says, ‘A happy heart is worth more than a full wallet!’” He pats Ahmed on the shoulder, a gesture that Ahmed clearly finds unwelcome. “Aslam! Jaldi karo! This *saab* needs sweetness in his life!”
+Next Speaker: Uncle Jameel
+********************************
+
+********************************
+Uncle Jameel: Arre, Raza *bhai*! Kya kar rahe ho? Is *saab* ko tang mat karo! Unko Dubai jana hai, kaam hai! Aur tum, tum toh sirf challan likhne ke liye ho! Inspector Farooq mera dost hai, woh tumhein jaanta hai! Poora mohalla jaanta hai Jameel bhai kaun hai! Aslam! Jaldi se do chai, aur ek plate *samosay* bhi le aa! Saab ke liye, aur thoda Raza *bhai* ke liye bhi! Dekho, dekho sab log, yeh police wale bhi sirf paison ke liye hain!
+  [ACTION] Offer_Bribe → Constable Raza (I wave my hand dismissively at Constable Raza while simultaneously instructing Aslam to bring chai and samosas for both him and Ahmed Malik, emphasizing my influence and subtly offering a bribe.)
+********************************
+
+  >> Action executed: Uncle Jameel subtly offers chai-pani to Constable Raza.
+********************************
+Director Narration: Constable Raza’s demand for ‘chai-pani’ hangs in the air, thick as the dust swirling from the endless line of trucks and buses. The crowd murmurs, a wave of disapproval rippling through them. Several phones are still surreptitiously recording, despite Raza’s warning. A particularly loud horn blast from a minibus nearly drowns out Uncle Jameel’s continued attempts to mediate, offering samosas like they’re a solution to everything. Ahmed Malik is visibly sweating now, not just from the heat, but from the mounting pressure. He keeps glancing at his watch, his jaw tight. Saleem, however, has sunk further to the ground, his shoulders slumped. He clutches his head in his hands, then suddenly looks up, his eyes blazing with desperation. He’s noticed a small, framed photograph tucked into the dashboard of his rickshaw – his five children. He pulls it out, holding it aloft for all to see.
+
+“Dekhiye! Dekhiye sab log! Yeh hain mere bachche! Inke liye mein roz mehnat karta hoon! Is aadmi ne meri zindagi chheen li! Crores, crores… kya tumhare bachchon ke liye bhi yeh crores zaroori hain? Allah ke naam pe, zara dekho toh!” He begins to weep openly, a raw, guttural sound that cuts through the din. A woman in the crowd starts crying with him, and others begin to shout their support for Saleem, turning their collective anger towards Ahmed Malik. The crowd surges forward slightly, creating a tighter ring around the BMW.
+Next Speaker: Saleem
+********************************
+
+********************************
+Saleem: Arre bhai! Dekho toh! Is police wale ko bhi dekho! Saab ko jaane dega, aur mujhe rickshaw ke paise kaun dega? Allah ke liye, zara dekho toh is rickshaw ka haal! Iske andar mere bachchon ka future tha! Crores, crores...mere bachchon ki padhai ke liye bhi nahi hain!    
+  [ACTION] Show_Item (I pull out the framed photograph of my five children from my rickshaw dashboard again, waving it frantically at the crowd and Constable Raza, tears streaming down my face.)
+********************************
+
+  >> Action executed: Saleem shows something to prove a point — I pull out the framed photograph of my five children from my rickshaw dashboard again, waving it frantically at the crowd and Constable Raza, tears streaming down my face.
+********************************
+Director Narration: Saleem’s desperate plea hangs in the air, swallowed momentarily by a particularly aggressive honk from a bus trying to squeeze through the gridlock. The crowd murmurs, a wave of sympathy rippling through them – mostly directed at Saleem. Dust devils swirl in the heat, coating everything in a fine grit. Ahmed Malik, visibly sweating now, runs a hand through his hair, his expensive cologne doing little to mask the smell of exhaust and desperation. Constable Raza, meanwhile, is subtly glancing around, trying to gauge how many phones are still pointed his way. He’s clearly uncomfortable with the attention.
+
+Uncle Jameel, however, is in his element. He pushes forward, nearly knocking over a man recording on his phone. “Arre! Enough with the cameras! This is not a circus! *Dekho, dekho!*” he bellows, waving his arms. He turns to Constable Raza, his voice dropping to a conspiratorial whisper, but still loud enough for several people to hear. “Raza *bhai*, what is this? A businessman trying to leave for Dubai, and you harassing him? Shameful! Aslam!” he shouts towards his shop, “*Jaldi se!* Chai and *samosas*! And make it quick! This *saab* needs refreshment before his important meeting!” He then turns back to Saleem, patting his shoulder with a reassuring, yet patronizing, air. “Don’t worry, *beta*. Jameel bhai is here. We will sort this out. This *saab* will pay, of course. He has to. It’s the right thing to do. But we must be… reasonable. No need to make a scene.”
+Next Speaker: Uncle Jameel
+********************************
+
+********************************
+Uncle Jameel: Arre! Ruk jao! Kahan jaa rahe ho, Saab? Itna tezi kyon hai? *Dekho, dekho!* Yeh police wale bhi... zara dekho toh, Saab ko jaane de rahe hain! *Haye Allah!* Is shehar mein koi insaaf nahi hai! Aslam! Jaldi se! Saab ki gaari ke samne baith jao! Rok do usko! Poora mohalla dekha raha hai, Saab! Shame shame!
+  [ACTION] Block_Vehicle → Ahmed Malik (I physically step in front of Ahmed Malik's BMW, arms outstretched, preventing it from moving forward. I yell at Aslam to join me in blocking the car.)
+********************************
+
+  >> Action executed: Uncle Jameel physically blocks Ahmed Malik's vehicle, preventing them from leaving.
+********************************
+Director Narration: Uncle Jameel’s outburst – “*Shame shame!*” – ripples through the crowd, a wave of murmurs and pointed fingers directed at Ahmed. The heat is oppressive, shimmering off the BMW’s hood. Dust motes dance in the harsh afternoon light, coating everything in a gritty film. A bus driver lays on his horn, a long, frustrated blast that’s swallowed by the general cacophony. Several people are now openly filming on their phones, the red recording lights blinking like accusing eyes. Ahmed, already sweating profusely in his tailored suit, runs a hand through his hair. He glances at his watch – again. His face is turning a shade of red that rivals the brake lights of the trucks jammed behind him. He’s losing control of the narrative, and the crowd is clearly enjoying his discomfort. He turns, his voice tight with barely suppressed fury, directly addressing Jameel.
+
+“Look, old man, I don’t need a lecture from a roadside vendor! I have a flight to catch! This isn’t about ‘justice,’ it’s about a damaged vehicle and a simple insurance claim. I’m a taxpayer, I contribute to this city! I’m not going to stand here and be insulted by… by *you*!” He gestures dismissively at Jameel, then sweeps his gaze across the crowd, trying to project an air of authority that’s rapidly crumbling. He pulls out his wallet, flashing a thick wad of Pakistani Rupees. “I’m willing to compensate the driver, of course. A reasonable amount. But this… this circus needs to end *now*.”
+Next Speaker: Ahmed Malik
+********************************
+
+********************************
+Ahmed Malik: Dekhiye, Constable Raza sahib, Uncle Jameel is right, I have a flight. It's a very important business meeting. I understand procedure, insurance, challan – sab theek hai. But time is of the essence. I'm happy to cooperate fully, and to… facilitate things. A little chai-pani for everyone wouldn't hurt, right? And perhaps a small token of appreciation for your time, Constable?
+  [ACTION] Offer_Bribe → Constable Raza (I subtly slip a PKR 5,000 note to Constable Raza while offering chai to everyone.)
+********************************
+
+  >> Action executed: Ahmed Malik subtly offers chai-pani to Constable Raza.
+********************************
+Director Narration: Ahmed Malik’s offer of ‘chai-pani’ hangs in the air, thick and oily like the exhaust fumes choking Shahrah-e-Faisal. The crowd *roars* with indignation. “Loota hai! Saab ne lootna shuru kar diya!” someone yells. A dozen phones are still pointed at the scene, despite Constable Raza’s threats. The heat is oppressive, making the dust motes dance in the hazy sunlight. Uncle Jameel, red-faced and sweating, is practically vibrating with outrage, waving his hands like a conductor leading a chaotic orchestra. Ahmed Malik, looking increasingly flustered, glances repeatedly at his watch. He’s trying to maintain a veneer of calm, but his jaw is clenched. Constable Raza, meanwhile, is subtly edging closer to Ahmed, his eyes gleaming with calculation. Saleem, who had been momentarily stunned by the offer, suddenly finds a surge of desperate energy. He pushes himself up from the ground, ignoring the ache in his knees, and stumbles towards Ahmed, clutching his empty wallet.
+
+“Sahab! Chai-pani? Samosay? Is this a joke? My rickshaw… my livelihood… is *broken*! Do you think a few rupees will fix this? My children will starve! Look! Look at my pockets! Empty! I have nothing! Nothing!” He thrusts the wallet at Ahmed, nearly falling over in his agitation. A woman in the crowd starts weeping, echoing Saleem’s despair. The honking of the traffic is relentless, a constant, maddening drone. 
+Next Speaker: Saleem
+********************************
+
+********************************
+Saleem: Arre! Zara dekho toh! Saab ko jaane de rahe hain! Isko police bhi madad kar rahi hai! Allah ke liye, isko mat jaane do! Meri rickshaw ka kya hoga? Paanch bachche bhooke mareinge! Bhaiyon aur behnon, zara dekho toh! Insaaf karo!
+  [ACTION] Block_Vehicle → Ahmed Malik (I throw myself in front of Ahmed Malik's BMW again, spreading my arms wide and yelling at the crowd to support me. I'm determined to stop him from leaving.)
+********************************
+
+  >> Action executed: Saleem physically blocks Ahmed Malik's vehicle, preventing them from leaving.
+********************************
+Director Narration: The air hangs thick and shimmering with heat. Dust devils swirl around the stalled traffic, kicked up by the constant honking. The crowd, a sea of faces, is a restless beast. Saleem’s cries of ‘insaaf!’ are swallowed by the din, but Uncle Jameel’s booming voice cuts through – “*Shame shame!*” – and several people echo him. Ahmed Malik, looking increasingly flustered, wipes sweat from his brow with a silk handkerchief. He’s glancing repeatedly at his watch. The bribe money, discreetly offered, feels warm in Constable Raza’s hand, but the sight of a phone camera pointed his way makes his gut clench. He needs to control this, and fast. He strides forward, deliberately blocking Ahmed Malik’s path, and addresses the crowd with a practiced air of authority, though his voice is rough.
+
+“*Aiye, aiye!* Enough noise! Let the police do their job! This is causing a major traffic jam. Both parties are at fault. *Saab*, you were driving too fast. And you,” he glares at Saleem, “you should have looked before pulling into traffic! Now, both of you listen to me. We can settle this quickly, or we can spend all day here in this heat. A challan for both of you will be… expensive. Very expensive. Or… we can discuss a small *muawaza* – a compensation – to cover the inconvenience. For everyone. Understand?” He subtly adjusts his uniform, trying to appear official despite the sweat staining his shirt. He pointedly looks at Ahmed Malik, then back at Saleem, raising an eyebrow. He’s fishing for a higher offer.
+Next Speaker: Constable Raza
+********************************
+
+********************************
+Constable Raza: Oye Saab! Abhi toh shuru hua hai! Five thousand? Itna toh rickshaw ki repair pe bhi nahi hoga! Suno, chabi de! Aur agar dega nahi toh gaari impound kar dunga. Samajha? Aur tum, Uncle Jameel! Chup reh! Tumhara kaam hai chai pilana, police ka kaam!
+  [ACTION] Confiscate_Keys → Ahmed Malik (I reach for Ahmed Malik's keys, attempting to grab them from his hand.)
+********************************
+
+  >> Action executed: Constable Raza snatches Ahmed Malik's vehicle keys.
+********************************
+Director Narration: Constable Raza’s demand for five thousand rupees hangs in the air, thick and suffocating like the exhaust fumes. The crowd *gasps*. Five thousand is nearly a month’s earnings for Saleem! A collective murmur of outrage ripples through the onlookers. Several phones are now pointed directly at Constable Raza, recording his every move. He shifts uncomfortably, wiping sweat from his brow. Ahmed Malik, looking increasingly frantic, glances at his watch for the tenth time in as many minutes. He’s starting to realize that simply throwing money at the problem isn’t working. Saleem remains slumped on the ground, chest heaving, tears welling in his eyes. The chai dhaba owner is frantically waving a fan, trying to create some semblance of a breeze. A bus horn blares, a long, mournful sound that seems to echo Saleem’s despair.
+
+Uncle Jameel, sensing the shift in the crowd’s mood, pushes his way to the front, nearly knocking over a man filming with his phone. He plants himself directly in front of Constable Raza, arms outstretched like a protective barrier. “*Arey! Arey!* What is this, Constable? Five thousand rupees? For a little dent? This is daylight robbery! *Dekho, dekho!* The whole world is watching! You think you can just bully a poor man like this? Shame on you! I know the DSP, you know! My cousin! He won’t be happy to hear about this… not happy at all! Aslam! *Jaldi se!* Bring chai for everyone, and a glass for the Constable, of course. We need to calm down and talk like civilized people… though some people here clearly aren’t civilized!” He shoots a pointed look at Ahmed Malik.
+Next Speaker: Uncle Jameel
+********************************
+
+********************************
+Uncle Jameel: Arre! *Dekho, dekho!* Raza *bhai*, kya ho raha hai? Is *saab* ko jaane de rahe ho? Poora mohalla dekh raha hai! Inspector Farooq mera dost hai, unko phone karta hoon! *Haye Allah!* Yeh kya zulm hai! Aslam! Jaldi se! Iski gaari ke tyre puncher kar do! Thoda sa drama toh hona chahiye!
+  [ACTION] Block_Vehicle → Ahmed Malik (I physically step in front of Ahmed Malik's BMW again, spreading my arms wider and yelling at Aslam to help me block the car. I also start dialing Inspector Farooq's number on my phone.)
+********************************
+
+  >> Action executed: Uncle Jameel physically blocks Ahmed Malik's vehicle, preventing them from leaving.
+********************************
+Director Narration: Constable Raza’s threat hangs in the air, thick and suffocating like the Karachi heat. Ahmed Malik, visibly sweating now, clutches his briefcase tighter, glancing repeatedly at his watch. The crowd, a swirling mass of faces, murmurs with disapproval at Raza’s blatant extortion. A chorus of ‘shame, shame!’ rises and falls. Uncle Jameel, red-faced and sputtering, continues to wave his arms, trying to reason with Raza, but the constable ignores him. A bus horn blares, a long, mournful sound swallowed by the general cacophony. Saleem, who had been momentarily stunned by Raza’s demand, suddenly drops to his knees, beating his chest. Dust swirls around his hands. He looks directly at Ahmed Malik, tears welling in his eyes. “Sahib! Allah ke naam pe! Mujhe maaf kar do! Meri rickshaw meri zindagi hai! Iske bina mere bachche bhooke mar jayenge! (Sir! In the name of God! Forgive me! My rickshaw is my life! Without it, my children will starve!)” He pulls out a crumpled, nearly empty wallet, displaying it to the crowd. “Dekho! Yeh hai mera sab kuch! (Look! This is all I have!)” A woman in the crowd starts weeping along with him, adding to the emotional pressure. The air feels charged, the crowd leaning forward, ready to explode.
+Next Speaker: Saleem
+********************************
+
+********************************
+Saleem: Arre bhai! Dekho toh! Yeh police wala Saab ko jaane de raha hai! Insaaf kahaan hai? Allah ke liye, isko mat jaane do! Meri rickshaw ka kya hoga? Bhaiyon aur behnon, zara dekho toh! Is Saab ne meri rickshaw tootwa di hai! Iske bachchon ka kya khayega?
+  [ACTION] Block_Vehicle → Ahmed Malik (I throw myself in front of Ahmed Malik's BMW again, spreading my arms wide and yelling at the crowd to support me, trying to physically prevent the car from moving while Raza tries to take the keys.)
+********************************
+
+  >> Action executed: Saleem physically blocks Ahmed Malik's vehicle, preventing them from leaving.
+********************************
+Director Narration: The air hangs thick and shimmering with heat. Dust devils swirl in the wake of passing motorcycles trying to squeeze through the gridlock. Horns blare a relentless, discordant symphony. Saleem, still sitting cross-legged on the scorching asphalt, clutches his head and begins to weep openly, a low, guttural sound lost in the din. Ahmed Malik, face flushed with anger and frustration, repeatedly checks his expensive watch, his tailored suit already sticking to his back with sweat. Constable Raza, looking increasingly flustered, keeps glancing nervously at the phones pointed his way. The crowd, a sea of faces, is a restless beast. A murmur ripples through them as Uncle Jameel’s outburst about Inspector Farooq hangs in the air. Several men nod in agreement, remembering past instances of Raza’s… flexibility.
+
+Uncle Jameel, puffing out his chest, strides forward, nearly colliding with a passing bicycle rickshaw. He plants himself directly between Ahmed Malik and Constable Raza, waving his hands emphatically. “*Arre!* Raza *bhai*, what is this nonsense? You are letting this *saab* go? Do you not see the poor man? His rickshaw is ruined! And you, *saab*,” he turns to Ahmed, his voice dripping with disapproval, “you think money can buy everything? This is Karachi, not Dubai! *Dekho, dekho!* The people are watching! This is a disgrace!” He snaps his fingers at a young boy, Aslam, who scurries off towards the chai dhaba, returning moments later with a steaming tray of glasses. “Chai for everyone! Let us discuss this like civilized people… or at least, like Karachiites!”
+Next Speaker: Uncle Jameel
+********************************
+
+********************************
+Uncle Jameel: Arre! Yeh kya ho raha hai? Raza *bhai*, tum toh poora *saab* ke ho gaye ho! Inspector Farooq ko phone karta hoon, phir tumhein pata chalega! *Dekho, dekho!* Is aadmi ne rickshaw ko maar di, aur tum usko jaane de rahe ho? Shame shame! Poora Karachi janta hai Jameel bhai kaun hai!
+  [ACTION] Call_Contact (I pull out my phone and dramatically start dialing Inspector Farooq's number, holding the phone up so everyone can see.)
+********************************
+
+  >> Action executed: Uncle Jameel pulls out a phone and makes a call — I pull out my phone and dramatically start dialing Inspector Farooq's number, holding the phone up so everyone can see.
+********************************
+Director Narration: Uncle Jameel’s shout of “Shame shame!” seems to ripple through the crowd, a wave of disapproval washing over Ahmed Malik. He glances around, his face slick with sweat – not just from the heat, but from rising panic. The honking is relentless, a cacophony that drills into his skull. A bus driver leans out his window, yelling something unintelligible but clearly angry. Several people are now filming him with their phones, the red recording lights blinking like accusing eyes. He feels cornered, exposed. Constable Raza, still holding his keys, looks… expectant. Jameel’s threat about Inspector Farooq hangs in the air, a flimsy shield against the growing hostility. Ahmed adjusts his expensive suit, trying to project an air of authority, but his voice cracks slightly as he speaks.
+
+“Look, this is ridiculous! I have a flight to catch! Five thousand rupees? That’s… insulting. The damage to my car is clearly worth far more. I’ll give you ten thousand, final offer. Just let me go!” He gestures impatiently towards the airport, trying to convey the urgency of his situation. A woman in the crowd shouts, “Loota hai, Saab! Rickshaw walay ka khayala nahi hai!” (He’s a robber, sir! Doesn’t care about the rickshaw driver!).
+Next Speaker: Ahmed Malik
+********************************
+
+********************************
+Ahmed Malik: Dekhiye, Constable Raza sahib, I understand your duty. And Uncle Jameel, I respect your concern for Saleem sahib. But this is becoming… chaotic. I’m a businessman, I deal in facts. Let’s be reasonable. I will personally ensure Saleem sahib receives a fair amount for the damage. But I *must* get to the airport. I’ll even… I’ll even offer to pay for the challan myself, right now. Just let me make a quick phone call to my office to inform them I’ll be slightly delayed.
+  [ACTION] Call_Contact (I pull out my smartphone and pretend to dial my office, holding it up so everyone can see I'm attempting to be responsible and communicative.)
+********************************
+
+  >> Action executed: Ahmed Malik pulls out a phone and makes a call — I pull out my smartphone and pretend to dial my office, holding it up so everyone can see I'm attempting to be responsible and communicative.
+
+============================================================
+STORY CONCLUSION
+============================================================
+Finally, after a tense back-and-forth, Ahmed Malik, exasperated and fearing missing his flight, agreed to pay Saleem 8,000 Rupees for the damage to the rickshaw, and an additional 2,000 Rupees to Constable Raza to ‘facilitate’ a quick resolution – a sum Raza happily pocketed, waving Malik through with a curt nod. Saleem, though still grumbling about the inadequacy of the sum, accepted the money, his face softening slightly at the thought of being able to buy some flour and lentils for his family; he immediately began assessing the damage to his rickshaw, already planning a makeshift repair. Ahmed Malik, after a frantic phone call confirming his flight was still holding, sped off towards the airport, leaving a trail of dust and a lingering sense of injustice. Uncle Jameel, beaming with self-importance, returned to his chai dhaba, loudly proclaiming to his customers that he had single-handedly saved the day, while Aslam continued serving chai to the dispersing crowd, the honking of cars slowly returning to its usual chaotic symphony. The dust settled on Shahrah-e-Faisal, the dent in the BMW a silent testament to the day’s drama, and the chai dhaba resumed its business, a small island of normalcy in the relentless current of Karachi life – a place where even justice has a price, and a cup of chai can smooth over almost any collision.
+============================================================
+
+
+=== STORY TRANSCRIPT ===
+
+[Turn 1] Saleem:
+  Arre bhai! Dekho toh! Kya karunga mein? Paanch bachche bhooke mareinge! Yeh rickshaw meri zindagi hai! Allah ke liye madad karo! Iske BMW ne meri rickshaw ko maar di! Sorry sir, lekin mein kya karunga? Police ko bulao toh woh bhi paisay lenge!
+
+[Turn 2] Uncle Jameel:
+  Arre bhai! Dekho toh, dekho! Yeh jo Saab hain, unko toh sharam aani chahiye! Gareeb aadmi ki rickshaw ko maar di! Poora mohalla dekh raha hai! Inspector Farooq mera dost hai, kal hi usse mila tha! Agar tumhare insurance wale nahi aate toh mein unko bula leta! Suno, Saab, zara dekho toh, is rickshaw ka kya haal bana diya hai! Iske bachchon ka kya khayega? Arey, Aslam! Jaldi chai la! Aur thora meetha bhi le aa, Saab ko meetha khilaana chahiye, shayad dil pighle!
+
+[Turn 3] Ahmed Malik:
+  Dekhiye, yaar, this is becoming…unnecessary. I understand the rickshaw is damaged, and I *am* willing to compensate Saleem sahib. But honestly, the delay is causing me a huge problem. I have a very important flight to Dubai – a business meeting, you understand? It’s a matter of… crores, dekhiye. I’m offering a fair amount, but this is becoming a bit of a…tamasha. Uncle Jameel, with all due respect, I appreciate your concern, but interfering like this isn’t helping anyone. Mujhe jaane do, please.
+
+[Turn 4] Saleem:
+  Arre sahab! Crores, crores tumhari zubaan pe! Mere paas toh rickshaw ke siva kuch bhi nahi hai! Dekho, dekho sab log! Is aadmi ne gareeb ka rickshaw tootwa diya! Allah ke liye, isko bolo kuch toh zimmedari lo! Police aayegi toh woh bhi mujhse hi paisay lenge! Sorry sir, lekin mein kya karunga?
+
+[Turn 5] Constable Raza:
+  Oye Saab! Crores, crores bolte raho! Yahan pe toh sirf reality hai. Insurance, report, challan – sab kuch hoga. Aur agar sab kuch theek se nahi hua toh gaari impound kar dunga. Suno, zara de kuch chai-pani ka intezaam karo, tabhi baat aage badhegi. Aur phone band karo sab! Koi video nahi banayega!
+
+[Turn 6] Uncle Jameel:
+  Arre, Raza *bhai*! Kya kar rahe ho? Is *saab* ko tang mat karo! Unko Dubai jana hai, kaam hai! Aur tum, tum toh sirf challan likhne ke liye ho! Inspector Farooq mera dost hai, woh tumhein jaanta hai! Poora mohalla jaanta hai Jameel bhai kaun hai! Aslam! Jaldi se do chai, aur ek plate *samosay* bhi le aa! Saab ke liye, aur thoda Raza *bhai* ke liye bhi! Dekho, dekho sab log, yeh police wale bhi sirf paison ke liye hain!
+
+[Turn 7] Saleem:
+  Arre bhai! Dekho toh! Is police wale ko bhi dekho! Saab ko jaane dega, aur mujhe rickshaw ke paise kaun dega? Allah ke liye, zara dekho toh is rickshaw ka haal! Iske andar mere bachchon ka future tha! Crores, crores...mere bachchon ki padhai ke liye bhi nahi hain!
+
+[Turn 8] Uncle Jameel:
+  Arre! Ruk jao! Kahan jaa rahe ho, Saab? Itna tezi kyon hai? *Dekho, dekho!* Yeh police wale bhi... zara dekho toh, Saab ko jaane de rahe hain! *Haye Allah!* Is shehar mein koi insaaf nahi hai! Aslam! Jaldi se! Saab ki gaari ke samne baith jao! Rok do usko! Poora mohalla dekha raha hai, Saab! Shame shame!
+
+[Turn 9] Ahmed Malik:
+  Dekhiye, Constable Raza sahib, Uncle Jameel is right, I have a flight. It's a very important business meeting. I understand procedure, insurance, challan – sab theek hai. But time is of the essence. I'm happy to cooperate fully, and to… facilitate things. A little chai-pani for everyone wouldn't hurt, right? And perhaps a small token of appreciation for your time, Constable?
+
+[Turn 10] Saleem:
+  Arre! Zara dekho toh! Saab ko jaane de rahe hain! Isko police bhi madad kar rahi hai! Allah ke liye, isko mat jaane do! Meri rickshaw ka kya hoga? Paanch bachche bhooke mareinge! Bhaiyon aur behnon, zara dekho toh! Insaaf karo!
+
+[Turn 11] Constable Raza:
+  Oye Saab! Abhi toh shuru hua hai! Five thousand? Itna toh rickshaw ki repair pe bhi nahi hoga! Suno, chabi de! Aur agar dega nahi toh gaari impound kar dunga. Samajha? Aur tum, Uncle Jameel! Chup reh! Tumhara kaam hai chai pilana, police ka kaam!
+
+[Turn 12] Uncle Jameel:
+  Arre! *Dekho, dekho!* Raza *bhai*, kya ho raha hai? Is *saab* ko jaane de rahe ho? Poora mohalla dekh raha hai! Inspector Farooq mera dost hai, unko phone karta hoon! *Haye Allah!* Yeh kya zulm hai! Aslam! Jaldi se! Iski gaari ke tyre puncher kar do! Thoda sa drama toh hona chahiye!
+
+[Turn 13] Saleem:
+  Arre bhai! Dekho toh! Yeh police wala Saab ko jaane de raha hai! Insaaf kahaan hai? Allah ke liye, isko mat jaane do! Meri rickshaw ka kya hoga? Bhaiyon aur behnon, zara dekho toh! Is Saab ne meri rickshaw tootwa di hai! Iske bachchon ka kya khayega?
+
+[Turn 14] Uncle Jameel:
+  Arre! Yeh kya ho raha hai? Raza *bhai*, tum toh poora *saab* ke ho gaye ho! Inspector Farooq ko phone karta hoon, phir tumhein pata chalega! *Dekho, dekho!* Is aadmi ne rickshaw ko maar di, aur tum usko jaane de rahe ho? Shame shame! Poora Karachi janta hai Jameel bhai kaun hai!
+
+[Turn 15] Ahmed Malik:
+  Dekhiye, Constable Raza sahib, I understand your duty. And Uncle Jameel, I respect your concern for Saleem sahib. But this is becoming… chaotic. I’m a businessman, I deal in facts. Let’s be reasonable. I will personally ensure Saleem sahib receives a fair amount for the damage. But I *must* get to the airport. I’ll even… I’ll even offer to pay for the challan myself, right now. Just let me make a quick phone call to my office to inform them I’ll be slightly delayed.
+
+
+=== CONCLUSION ===
+Ended after 15 turns
+
+--- Story Ending ---
+Finally, after a tense back-and-forth, Ahmed Malik, exasperated and fearing missing his flight, agreed to pay Saleem 8,000 Rupees for the damage to the rickshaw, and an additional 2,000 Rupees to Constable Raza to ‘facilitate’ a quick resolution – a sum Raza happily pocketed, waving Malik through with a curt nod. Saleem, though still grumbling about the inadequacy of the sum, accepted the money, his face softening slightly at the thought of being able to buy some flour and lentils for his family; he immediately began assessing the damage to his rickshaw, already planning a makeshift repair. Ahmed Malik, after a frantic phone call confirming his flight was still holding, sped off towards the airport, leaving a trail of dust and a lingering sense of injustice. Uncle Jameel, beaming with self-importance, returned to his chai dhaba, loudly proclaiming to his customers that he had single-handedly saved the day, while Aslam continued serving chai to the dispersing crowd, the honking of cars slowly returning to its usual chaotic symphony. The dust settled on Shahrah-e-Faisal, the dent in the BMW a silent testament to the day’s drama, and the chai dhaba resumed its business, a small island of normalcy in the relentless current of Karachi life – a place where even justice has a price, and a cup of chai can smooth over almost any collision.
+--- End ---
+Total actions performed: 15
+
+Story saved to C:\Users\user\Documents\GenAi_DSS\story_output.json   
+Prompts saved to C:\Users\user\Documents\GenAi_DSS\prompts_log.json
+PS C:\Users\user\Documents\GenAi_DSS> 

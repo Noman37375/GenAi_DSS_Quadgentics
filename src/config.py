@@ -11,11 +11,11 @@ class StoryConfig:
     temperature: float = 0.7
     
     max_turns: int = 25
-    min_turns: int = 10
+    min_turns: int = 15
     max_tokens_per_prompt: int = 2000
     max_context_length: int = 4000
     
-    max_consecutive_same_character: int = 2
+    max_consecutive_same_character: int = 1
     
     num_characters: int = 4
     max_dialogue_length: int = 200

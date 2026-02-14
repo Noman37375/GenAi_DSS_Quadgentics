@@ -110,7 +110,7 @@ Your Memory (things you remember):
 {memory_text}
 
 Actions taken so far in the story: {action_count}
-(The story needs at least 5 actions before it can conclude. Consider performing actions to advance the plot, not just talking.)
+(The story needs at least 7 actions before it can conclude. Perform physical actions to advance the plot — don't just talk!)
 
 Recent Dialogue and Actions:
 {history_text}
@@ -221,8 +221,8 @@ Recent Dialogue and Actions:
         if state.current_turn < self.config.min_turns:
             return {"is_concluded": False}
 
-        # HARD BLOCK: Do not allow conclusion before 5 actions
-        if action_count < 5:
+        # HARD BLOCK: Do not allow conclusion before 7 actions (need variety)
+        if action_count < 7:
             return {"is_concluded": False}
 
         # Force conclusion at max_turns

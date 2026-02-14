@@ -48,6 +48,8 @@ class DirectorAgent(BaseAgent):
             world_state_text=self._format_world_state(story_state),
             recent_dialogue=recent_dialogue,
             character_descriptions=character_descriptions,
+            current_turn=story_state.current_turn,
+            max_turns=self.config.max_turns,
             action_count=get_action_count(story_state),
             max_consecutive=self.config.max_consecutive_same_character
         )
@@ -63,16 +65,27 @@ class DirectorAgent(BaseAgent):
             if next_speaker not in available_characters:
                 next_speaker = available_characters[0]
 
-            # HARD ENFORCEMENT: prevent same speaker more than max_consecutive times in a row
+            # HARD ENFORCEMENT 1: prevent same speaker as last turn
             max_consec = self.config.max_consecutive_same_character
             if len(story_state.dialogue_history) >= max_consec:
                 last_speakers = [t.speaker for t in story_state.dialogue_history[-max_consec:]]
                 if all(s == next_speaker for s in last_speakers):
-                    # Force a different speaker
                     alternatives = [c for c in available_characters if c != next_speaker]
                     if alternatives:
                         forced = alternatives[0]
                         print(f"  [Anti-Repetition] Blocked {next_speaker} (spoke {max_consec}x in a row), forcing {forced}")
+                        next_speaker = forced
+
+            # HARD ENFORCEMENT 2: prevent same 2 characters ping-ponging for 4+ turns
+            if len(story_state.dialogue_history) >= 4:
+                last_4 = [t.speaker for t in story_state.dialogue_history[-4:]]
+                unique_in_last_4 = set(last_4)
+                if len(unique_in_last_4) == 2 and next_speaker in unique_in_last_4:
+                    # Same 2 chars for 4 turns, force a third character
+                    alternatives = [c for c in available_characters if c not in unique_in_last_4]
+                    if alternatives:
+                        forced = alternatives[0]
+                        print(f"  [Anti-PingPong] Blocked 2-char loop ({unique_in_last_4}), forcing {forced}")
                         next_speaker = forced
 
             return next_speaker, narration
@@ -96,12 +109,11 @@ class DirectorAgent(BaseAgent):
 
         prompt = DIRECTOR_CONCLUSION_PROMPT.format(
             story_summary=f"Context: {story_state.seed_story.get('description', '')}\nLast Turns:\n" +
-                          "\n".join([f"{t.speaker}: {t.dialogue}" for t in story_state.dialogue_history[-8:]]),
+                          "\n".join([f"{t.speaker}: {t.dialogue}" for t in story_state.dialogue_history[-10:]]),
             world_state_text=self._format_world_state(story_state),
             character_descriptions=character_descriptions,
             current_turn=story_state.current_turn,
             max_turns=self.config.max_turns,
-            min_turns=self.config.min_turns,
             action_count=action_count
         )
 
