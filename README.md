@@ -47,6 +47,18 @@ Unlike traditional chatbots, these agents possess:
    GOOGLE_API_KEY=your_api_key_here
    ```
 
+**First-time run checklist:** Ensure `GOOGLE_API_KEY` is set in `.env`, then from repo root run `npm run dev` (for frontend + API) or `uv run python src/main.py` (backend only). Open http://localhost:5173 for the app or check terminal for narrative output.
+
+### Troubleshooting
+
+| Issue | Fix |
+|-------|-----|
+| `GOOGLE_API_KEY` missing or invalid | Create `.env` in repo root with `GOOGLE_API_KEY=your_key`. Get a key from [Google AI Studio](https://aistudio.google.com/app/apikey) (free tier). |
+| `uv: command not found` | Install [uv](https://docs.astral.sh/uv/): `pip install uv` or use your OS package manager. |
+| Port 8000 or 5173 already in use | Stop the process using that port, or change port in `package.json` (dev:api) / Vite config (frontend). |
+| Backend runs but frontend shows "Connection lost" | Ensure API is running (`npm run dev:api` or `npm run dev`). Frontend expects `http://localhost:8000` (set `VITE_API_URL` in frontend `.env` if your API is elsewhere). |
+| `ModuleNotFoundError` or import errors | Run from **repo root** (where `src/` and `pyproject.toml` are). Use `uv run python src/main.py` not `python main.py` from inside `src/`. |
+
 ## 3. Usage
 
 ### Run Backend + Frontend Together
@@ -57,8 +69,9 @@ This starts both the FastAPI backend (port 8000) and Vite frontend (port 5173) u
 
 ### Run Backend Only (CLI mode)
 ```bash
-uv run src/main.py
+uv run python src/main.py
 ```
+(Run from repo root so `src` and `examples` resolve.)
 
 ### Run Backend API Only
 ```bash
@@ -236,7 +249,16 @@ If the reviewer rejects (major severity), the character gets **one retry** with 
 - Next button disabled while waiting for next turn
 - Shows narration, dialogue, and action text per turn
 
-## 6. Output Files
+## 6. Documentation and Deliverables
+
+| Deliverable | Location | PDF (for submission) |
+|-------------|----------|----------------------|
+| **README** | This file | — |
+| **Technical Report** | `Technical_Report.md` | Generate PDF: `pandoc Technical_Report.md -o Technical_Report.pdf` (requires [pandoc](https://pandoc.org/)). Alternatively use the provided `Technical_Report.tex` with `pdflatex Technical_Report.tex`. |
+
+The problem statement asks for a PDF (LaTeX) technical report. We provide the report in Markdown and LaTeX source; use the commands above to produce the PDF. A pre-built `Technical_Report.pdf` may be included in the submission package.
+
+## 7. Output Files
 
 **`story_output.json`** — Final narrative trace:
 - `title`, `seed_story` (metadata)
@@ -247,7 +269,7 @@ If the reviewer rejects (major severity), the character gets **one retry** with 
 **`prompts_log.json`** — Debug/audit log:
 - `timestamp`, `agent`, `prompt`, `response` for every LLM call (Director, Character, Reviewer)
 
-## 7. Configuration
+## 8. Configuration
 
 | Parameter | Default | Description |
 |---|---|---|
@@ -260,7 +282,7 @@ If the reviewer rejects (major severity), the character gets **one retry** with 
 | `max_consecutive_same_character` | `1` | Anti-repetition threshold |
 | `num_characters` | `4` | Number of character agents |
 
-## 8. Features Beyond Requirements
+## 9. Features Beyond Requirements
 
 The problem statement requires Memory, Actions, and Reasoning. Our system adds **8 novel extensions**:
 
@@ -275,7 +297,7 @@ The problem statement requires Memory, Actions, and Reasoning. Our system adds *
 | 7 | **4-Phase Story Structure** | Director follows Setup → Escalation → Complication → Resolution |
 | 8 | **Real-Time Frontend + SSE** | React app streams turns live via Server-Sent Events |
 
-## 9. Key Files
+## 10. Key Files
 
 | File | Purpose |
 |---|---|

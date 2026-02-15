@@ -274,11 +274,13 @@ The reviewer is a separate agent (not part of the character prompt) because: (1)
 
 | Rubric Component | Our Implementation | Key Strengths |
 |---|---|---|
-| **Working System (25)** | Runs via `uv run src/main.py` or `npm run dev`. Clean, modular code. | 6 agents, LangGraph, Pydantic state, full logging |
+| **Working System (25)** | Runs via `uv run python src/main.py` or `npm run dev`. Clean, modular code. | 6 agents, LangGraph, Pydantic state, full logging |
 | **JSON Compliance (15)** | `story_output.json` (events, conclusion, metadata), `prompts_log.json` (all agent calls) | Complete, meaningful, consistent with narrative flow |
 | **Feature Implementation (15)** | All 3 mandatory + 8 novel extensions | Reviewer Agent, LLM twists, deep personas, SSE streaming, etc. |
-| **Documentation (20)** | README (setup/usage/architecture), Technical Report (design decisions) | Clear justification for every design choice |
-| **Story Quality (10)** | Coherent narratives with dramatic arcs, realistic Karachi language | Reviewer ensures quality floor; personas ensure variety |
+| **Documentation (20)** | README (setup/usage/architecture), Technical Report (design decisions), PDF via pandoc/LaTeX | Clear justification for every design choice; see §7–8 for limitations and improvements |
+| **Story Quality (10)** | Coherent narratives with dramatic arcs, realistic Karachi language | Reviewer ensures quality floor; personas ensure variety. Some repetition and theatrical tone remain (see §8). |
+
+**Critical reflection:** Self-scores above are our own assessment. Independent evaluation may find runnability issues (e.g. missing `GOOGLE_API_KEY`), residual repetition in dialogue, or action rejections (e.g. `target: null`). We would improve by adding a runnability checklist, more reviewer retries or stricter prompts, and a fixed action target validator (§9).
 
 ### 6.3 Iterative Development
 
@@ -296,7 +298,34 @@ The reviewer is a separate agent (not part of the character prompt) because: (1)
 
 ---
 
-## 7. Summary of Features Beyond Requirements
+## 7. Limitations and Known Issues
+
+We acknowledge the following limitations so that evaluators and future work can address them:
+
+| Area | Limitation | Impact |
+|------|------------|--------|
+| **Actions** | Actions with `target: null` (e.g. *Wave_Down_Passerby → null*) are rejected by the validator. The LLM sometimes outputs null for “crowd” or “passerby” targets. | Some intended actions do not execute; world state may miss minor beats. |
+| **Repetition** | Despite the 3-layer anti-repetition system and Reviewer, thematic repetition can occur (e.g. “bachchon ka kya,” “Inspector Farooq,” class contrast). Reviewer catches explicit repeats but not all semantic overlap. | Dialogue may feel repetitive in long runs. |
+| **Dialogue tone** | Reviewer sometimes flags “theatrical” or “drama-serial” tone; retries improve but do not always remove it. | Occasional lines may sound scripted rather than spontaneous. |
+| **Conclusion** | Conclusions often follow a similar pattern (money exchanged, parties disperse). Director has freedom but LLM tends toward negotiated settlement. | Endings can feel formulaic across runs. |
+| **Runnability** | System requires `GOOGLE_API_KEY` in `.env`, `uv`, and Node.js. First-time runs can fail if any step is skipped. | Evaluators must follow README exactly; we provide troubleshooting in README. |
+| **Report format** | This report is provided in Markdown. Problem statement requests PDF (LaTeX). We provide build instructions for PDF generation (§README). | PDF can be generated via pandoc or the provided LaTeX source. |
+
+---
+
+## 8. Future Improvements
+
+If we had more time, we would prioritize:
+
+1. **Runnability:** A single script or `make run` that checks for `.env`, prompts for API key if missing, and runs backend + frontend with clear first-time instructions.
+2. **Action target handling:** Allow abstract targets (e.g. “crowd,” “passerby”) or map them to a synthetic world-state key so that actions are not rejected for null target.
+3. **Stronger anti-repetition:** Semantic similarity check (e.g. embedding-based) in addition to Reviewer’s text-level feedback; or a “repetition budget” per character per theme.
+4. **Conclusion diversity:** Director prompt or sampling strategy to encourage different conclusion types (e.g. police intervention, walkaway, crowd resolution) and avoid default “money handover” endings.
+5. **Technical Report PDF:** Ship a pre-generated `Technical_Report.pdf` in the repository in addition to Markdown and LaTeX source, so judges need not run pandoc/LaTeX.
+
+---
+
+## 9. Summary of Features Beyond Requirements
 
 The problem statement requires: Memory, Actions, Reasoning, max 25 turns, 5+ actions, story_output.json, prompts_log.json, README, Technical Report.
 
@@ -315,7 +344,21 @@ The problem statement requires: Memory, Actions, Reasoning, max 25 turns, 5+ act
 
 ---
 
-## Appendix A: File Structure
+## Appendix A: Technical Report PDF
+
+The problem statement requests a **PDF (LaTeX)** technical report. This document is provided as:
+
+- **Technical_Report.md** — Markdown source (this file).
+- **Technical_Report.tex** — LaTeX source for compilation to PDF (see repo root).
+- **Generating PDF:** From repo root, run either:
+  - `pandoc Technical_Report.md -o Technical_Report.pdf` (requires [pandoc](https://pandoc.org/)), or
+  - `pdflatex Technical_Report.tex` (requires a LaTeX distribution).
+
+A pre-built PDF may be included in the submission bundle for evaluator convenience.
+
+---
+
+## Appendix B: File Structure
 
 ```
 GenAi_DSS/

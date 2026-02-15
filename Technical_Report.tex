@@ -1,0 +1,45 @@
+% Technical Report: GenAI_DSS Multi-Agent Narrative System
+% Hackfest x Datathon 2026 — Generative AI Module
+% For full content see Technical_Report.md; this file compiles to PDF for submission.
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry,hyperref,booktabs,enumitem}
+\geometry{margin=2.5cm}
+\title{Technical Report: GenAI\_DSS Multi-Agent Narrative System}
+\author{Hackfest x Datathon 2026 — Generative AI Module}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This report describes the design and implementation of a 6-Agent Narrative System that orchestrates four autonomous character agents, a Director agent, and a Reviewer agent through a conflict-driven street scene story set in Karachi. Built on LangGraph, the system implements the three mandatory components (Memory, Actions, Reasoning) and adds 8 novel extensions: deep psychological personas with tactical evolution, open-ended actions with pattern-matching, LLM-generated context-aware story twists, a Reviewer Agent for Karachi realism, 3-layer anti-repetition, conclusion resistance mechanisms, 4-phase story structure, and real-time React frontend with SSE streaming. The system produces coherent 15--22 turn narratives with natural action frequency and authentic Karachi street language. Full details, tables, and appendices are in \texttt{Technical\_Report.md}.
+\end{abstract}
+
+\section{System Architecture}
+High-level design: Director-Agent architecture orchestrated by a LangGraph StateGraph. Director selects speaker, narrates, generates twist at turn 9, checks conclusion. Four character agents respond with reasoning, dialogue, and open-ended actions. Reviewer agent validates each turn (language, logic, repetition); rejected turns get one retry. State: Pydantic StoryState (seed\_story, current\_turn, dialogue\_history, events, character\_profiles, character\_memories, world\_state, is\_concluded, conclusion\_reason). LLM: gemma-3-27b-it, temperature 0.75, max 2000 output tokens, 4000 context.
+
+\section{Mandatory Components}
+\textbf{Character Memory:} Sliding window of 20 entries per character; cross-character propagation (speaker + others get dialogue/action/twist updates). \textbf{Action System:} Open-ended actions with 13 pattern categories (money, bribe, challan, keys, record, block, push, show, call, sit, cry, whistle, catch-all) mapping to world-state updates. \textbf{Reasoning Layer:} Structured JSON with reasoning, decision (talk/act/both), dialogue, and action (type, target, description).
+
+\section{Novel Extensions}
+(1) Reviewer Agent — quality gate per turn. (2) Deep psychological personas with tactical evolution. (3) LLM-generated context-aware twists at turn 9. (4) Open-ended actions with pattern-matching. (5) 3-layer anti-repetition (code, context, reviewer). (6) 5-mechanism conclusion resistance (min turns, min actions, post-twist buffer, gating, max turns). (7) 4-phase story structure (Setup, Escalation, Complication, Resolution). (8) Real-time frontend with SSE streaming.
+
+\section{Design Decisions}
+Structural constraints enforced in code (no consecutive same speaker, min turns, min actions, twist timing, anti-ping-pong); creative content in prompts. Open-ended actions chosen over fixed menu for expressiveness; pattern-matching preserves world-state. Reviewer as separate agent for single responsibility and audit trail.
+
+\section{Limitations and Known Issues}
+Actions with target null are rejected; some thematic repetition remains despite Reviewer; dialogue can be theatrical; conclusions often follow similar settlement pattern; runnability depends on GOOGLE\_API\_KEY and correct setup. See Technical\_Report.md §7 for full table.
+
+\section{Future Improvements}
+Runnability script, action target handling for abstract targets, stronger semantic anti-repetition, conclusion diversity, pre-built PDF in repo.
+
+\section*{Appendix: File Structure}
+\texttt{src/} (main.py, api.py, config, schemas, actions, story\_state, agents/, prompts/, graph/), \texttt{examples/rickshaw\_accident/}, \texttt{Hackthon\_Frontend\_IBA/frontend/}, \texttt{story\_output.json}, \texttt{prompts\_log.json}, \texttt{README.md}, \texttt{Technical\_Report.md}.
+
+\vspace{1em}
+\noindent \textit{Complete report with all tables, code snippets, and rubric compliance: Technical\_Report.md. Generate PDF from Markdown:} \texttt{pandoc Technical\_Report.md -o Technical\_Report.pdf}.
+
+\end{document}
