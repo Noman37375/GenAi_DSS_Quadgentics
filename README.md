@@ -25,8 +25,8 @@ Unlike traditional chatbots, these agents possess:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/itbaans/GenAi_DSS.git
-   cd GenAi_DSS
+   git clone https://github.com/Noman37375/GenAi_DSS_Quadgentics.git
+   cd GenAi_DSS_Quadgentics
    ```
 
 2. **Install backend dependencies**:
