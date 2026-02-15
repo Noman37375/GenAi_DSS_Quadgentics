@@ -39,6 +39,7 @@ A previous Claude Code session hit its limit while integrating the **ReviewerAge
 - [x] **README updated**: Full feature documentation, architecture diagram, configuration table, key files. Removed "Missing Features" section.
 - [x] **Technical Report created**: Technical_Report.md with architecture, design decisions, trade-offs, evaluation results.
 - [x] **ReviewerAgent integrated**: Fifth agent reviews each character turn for Karachi realism, language, repetition, and action logic; rejects major issues with one retry using reviewer suggestion.
+- [x] **FastAPI + frontend integration**: Backend API (src/api.py) with POST /api/run, GET /api/story (200 + empty when no story), GET /api/run/stream (SSE). Frontend uses EventSource for turn-by-turn streaming; Next disabled on last turn while streaming, auto-advance when new turn arrives. Root package.json runs both via concurrently (dev, dev:frontend, dev:api).
 
 ---
 
@@ -392,6 +393,34 @@ Post-twist breathing room (5 turns). Conclusion only on even turns before turn 1
 
 ---
 
+## 27. FastAPI + Frontend Integration & Streaming
+
+**Why:** The frontend needed to run the full narrative via the backend (no pre-baked story). To avoid long waits (2–5 min), the backend streams each **reviewed** turn over SSE so the user sees turns as they are ready instead of waiting for the whole run. GET /api/story returns 200 with an empty payload when no story exists (no 404 in console).
+
+### Applied Changes
+
+| File | Change |
+|------|--------|
+| **pyproject.toml** | Added `fastapi>=0.115.0`, `uvicorn>=0.32.0`. |
+| **package.json** (repo root) | New. Scripts: `dev` = concurrently frontend + API, `dev:frontend` = cd to frontend + npm run dev, `dev:api` = uv run uvicorn src.api:app --reload --port 8000. DevDependency: `concurrently`. |
+| **src/api.py** (new) | FastAPI app, CORS for localhost:5173 / 127.0.0.1:5173. In-memory `last_story`. `events_to_frontend_turns()` maps backend events (dialogue/narration/action) to frontend shape (title, scenario, turns, conclusion); speaker → character key (Saleem→saleem, Ahmed Malik→ahmed, etc.); optional `actionText` per turn. `run_narrative()` = same setup as main (seed_story, character_configs, graph); `_build_graph_and_state()` for streaming. **POST /api/run**: runs full narrative, transforms, stores in `last_story`, writes story_output.json & prompts_log.json, returns payload. **GET /api/story**: returns `last_story` or `{ title: null, scenario: null, turns: [], conclusion: null }` (200, no 404). **GET /api/run/stream**: SSE stream; sends `meta` (title, scenario), then per `character_respond` chunk `turns` (newTurns), then `conclusion` from check_conclusion, then `done`; uses `graph.astream(initial_state, stream_mode="updates")`; sets `last_story` at end. |
+| **Hackthon_Frontend_IBA/frontend/src/App.jsx** | `storyData` in state (initial null). API base from `VITE_API_URL` (default http://localhost:8000). On mount: GET /api/story; if body has turns, set storyData. **Start story**: EventSource GET /api/run/stream; on `meta` set storyData (title, scenario, turns: []); on `turns` append newTurns and **auto-advance** if user was on previous last turn; on `conclusion` set conclusion; on `done` close EventSource, set currentTurn -1, isLoading false. Entry screen when no story or empty turns and not loading. "Streaming story" message when loading and turns.length === 0. **Next button**: disabled when `isConclusion` OR (`isLoading` and on last turn) so it stays disabled until the next turn is generated; when new turn arrives, Next enables and view auto-advances if on last turn. Display uses storyData?.title, scenario, turns, conclusion; optional actionText under dialogue. Nav/progress/character list only when storyData set. |
+
+### Current run / build
+
+| Command | Where | What it does | Typical output (excerpt) |
+|---------|--------|--------------|---------------------------|
+| **npm run dev** | Repo root | Starts frontend (Vite) and API (uvicorn) with concurrently | `[0] Vite v7.x ... ready at http://localhost:5173` and `[1] INFO: Uvicorn running on http://127.0.0.1:8000` |
+| **npm run dev:frontend** | Repo root | Only frontend: `cd Hackthon_Frontend_IBA/frontend && npm run dev` | Vite dev server on 5173 (uses esbuild under the hood for deps, Vite for serve/HMR) |
+| **npm run dev:api** | Repo root | Only API: `uv run uvicorn src.api:app --reload --port 8000` | `INFO: Uvicorn running on http://127.0.0.1:8000`; may show pyproject TOML warning for `python-version` in `[tool.uv]` |
+| **uv run uvicorn src.api:app --reload --port 8000** | Repo root | Same as dev:api; **uv** resolves env and runs uvicorn | Same as above |
+| **npm run dev** (in frontend) | Hackthon_Frontend_IBA/frontend | Vite dev server only | `VITE v7.x ready at http://localhost:5173` |
+| **npm run build** (in frontend) | Hackthon_Frontend_IBA/frontend | Vite production build | `vite v7.x building for production...` then `dist/` output |
+
+**Note:** Frontend dev uses **Vite** (which uses **eslint** for lint; build is Rollup/esbuild-based). Backend uses **uv** for dependency and env management and **uvicorn** as the ASGI server.
+
+---
+
 ### Issues Remaining
 - [x] ~~No Technical Report~~ → Created (Technical_Report.md)
 - [x] ~~README says "Missing Features"~~ → Rewritten with full feature docs
@@ -424,4 +453,4 @@ Post-twist breathing room (5 turns). Conclusion only on even turns before turn 1
 
 ---
 
-*Last updated: Run 10 analysis (22 turns, 5 actions, ReviewerAgent + Director twist); Change 26 — ReviewerAgent integrated; Run 9 (1-23 + Documentation).*
+*Last updated: Change 27 — FastAPI + frontend integration, GET/POST/stream endpoints, SSE turn-by-turn streaming, Next disabled on last turn while streaming with auto-advance when new turn arrives; run commands (npm run dev, uv, Vite/esbuild) documented.*

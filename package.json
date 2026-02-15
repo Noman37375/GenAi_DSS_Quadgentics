@@ -1,0 +1,12 @@
+{
+  "name": "genai-dss",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:api\"",
+    "dev:frontend": "cd Hackthon_Frontend_IBA/frontend && npm run dev",
+    "dev:api": "uv run uvicorn src.api:app --reload --port 8000"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}
