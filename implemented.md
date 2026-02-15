@@ -249,7 +249,7 @@ Quality
 *(Changes 7-11 documented in detail below — unchanged from previous version)*
 
 ### 7. Action System (`src/actions.py`)
-10 scenario-specific actions with validation and execution pipeline. Each action updates world_state and propagates to all character memories.
+Originally: 10 scenario-specific actions with validation and execution pipeline. **Later overhauled** (see changes 21-23, then full rewrite to open-ended system): now uses pattern-matching on free-form action types instead of a fixed menu. Each action still updates world_state and propagates to all character memories.
 
 ### 8. Reasoning Layer (Structured Character Output)
 Characters respond with JSON: `reasoning`, `decision` (talk/act/both), `dialogue`, `action`. Forces explicit think-before-act.
@@ -421,15 +421,39 @@ Post-twist breathing room (5 turns). Conclusion only on even turns before turn 1
 
 ---
 
+## 28. Documentation Overhaul — README + Technical Report Updated to Match Current System
+
+**Why:** The README and Technical Report were written when the system still used hardcoded actions (10-item menu), hardcoded twists (4 random choices), simple language rules, and temperature 0.7. Since then, the system was completely overhauled: open-ended actions with pattern-matching, deep psychological personas with tactical evolution, LLM-generated twists, Reviewer Agent, FastAPI + React frontend with SSE streaming, and temperature 0.75. Documentation must accurately describe the CURRENT system for judges.
+
+**Applied Changes:**
+
+| File | What Changed |
+|------|-------------|
+| **README.md** | Complete rewrite. Now documents: open-ended action system (pattern table instead of fixed menu), deep psychological personas, LLM-generated twists, Reviewer Agent, FastAPI + SSE streaming, frontend setup/usage. Architecture diagram updated. Config table shows temperature 0.75. Key files table includes api.py and frontend. Setup instructions include frontend (npm install, npm run dev). |
+| **Technical_Report.md** | Complete rewrite. Section 3.2 (Actions): now describes open-ended pattern-matching system with code examples, explains WHY we moved from fixed menu to open-ended (repetition, limited expressiveness, artificial feel). Section 3.3 (Reasoning): now describes deep personas with psychology/tactical evolution, explains WHY deep personas vs simple rules. Section 4.1 (Twists): now describes LLM-generated twists via DIRECTOR_TWIST_PROMPT, explains WHY LLM-generated vs hardcoded (repetition across runs, context mismatch). Section 4.6 (new): SSE streaming. Section 5 (Trade-offs): updated tables for open-ended vs fixed menu, reviewer vs stronger prompts. Section 6 (Evaluation): includes Run 10 data with reviewer catches. Appendix: file structure includes api.py, frontend directory. |
+
+**Key documentation changes by topic:**
+
+| Topic | OLD (inaccurate) | NEW (matches code) |
+|-------|-------------------|---------------------|
+| Actions | "10 action types: Give_Money, Offer_Bribe..." with VALID_ACTIONS table | Open-ended with pattern-matching; any action valid; 13 pattern categories |
+| Twists | "4 pre-written twists randomly selected" | LLM-generated via DIRECTOR_TWIST_PROMPT, unique per run |
+| Personas | "Per-character language rules with WRONG/RIGHT examples" | Deep psychological personas with PSYCHOLOGY, LANGUAGE, TACTICAL EVOLUTION, NEVER DO |
+| Temperature | 0.7 | 0.75 |
+| Architecture | No frontend, no API | FastAPI + React + SSE streaming documented |
+| Design rationale | "Why scenario-specific actions? Generic actions don't produce meaningful state changes" | "Why open-ended? Fixed menu caused repetition, limited emergent behavior, felt artificial" |
+| Twist rationale | "Why code-level, not prompt-level? Prompt instructions unreliable" | "Why LLM-generated? Hardcoded twists repeated across runs and didn't fit specific context" |
+
+---
+
 ### Issues Remaining
 - [x] ~~No Technical Report~~ → Created (Technical_Report.md)
 - [x] ~~README says "Missing Features"~~ → Rewritten with full feature docs
 - [x] ~~Actions forced every turn (16/16)~~ → Natural (9/16 in Run 9)
-- [x] ~~Same action repeated (Show_Item 3x)~~ → Code-level blocking
-- [ ] Dialogue theme repetition (Saleem: children/rickshaw/gareeb in multiple turns) — semantic; ReviewerAgent can reject e.g. "same emotional appeal again" to reduce
-- [ ] Uncle Jameel repeats "Inspector Farooq" and "Poora Karachi jaanta hai" — semantic; reviewer repetition check may catch
-- [ ] Director narration still sometimes repeats phrases — partially fixed
-- [ ] Technical_Report.md needs conversion to PDF
+- [x] ~~Same action repeated (Show_Item 3x)~~ → Open-ended system eliminates fixed-menu repetition
+- [x] ~~Documentation describes old system~~ → README + Technical Report fully updated to match current code
+- [ ] Dialogue theme repetition (Saleem: children/rickshaw/gareeb) — Reviewer catches worst cases, some recurrence remains
+- [ ] Technical_Report.md needs conversion to PDF for submission
 
 ### Do's & Don'ts Compliance
 
