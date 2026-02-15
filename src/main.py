@@ -12,6 +12,7 @@ if str(project_root) not in sys.path:
 from src.config import StoryConfig
 from src.agents.character_agent import CharacterAgent
 from src.agents.director_agent import DirectorAgent
+from src.agents.reviewer_agent import ReviewerAgent
 from src.graph.narrative_graph import NarrativeGraph
 from src.story_state import StoryStateManager
 
@@ -37,14 +38,15 @@ async def main():
         for char in char_configs["characters"]
     ]
     
-    # Create director
+    # Create director and reviewer
     director = DirectorAgent(config)
+    reviewer = ReviewerAgent(config)
     
     # Initialize StoryStateManager to prepare initial state properly
     story_manager = StoryStateManager(seed_story, char_configs["characters"], config)
     
-    # Build and run narrative graph
-    story_graph = NarrativeGraph(config, characters, director)
+    # Build and run narrative graph (reviewer checks each turn for Karachi realism)
+    story_graph = NarrativeGraph(config, characters, director, reviewer)
     
     print("Starting Narrative Game...")
     print(f"Title: {seed_story['title']}")
@@ -100,6 +102,11 @@ async def main():
     # Director logs
     for log in director.logs:
         log["role"] = "Director"
+        all_logs.append(log)
+    
+    # Reviewer logs
+    for log in reviewer.logs:
+        log["role"] = "Reviewer"
         all_logs.append(log)
         
     # Character logs

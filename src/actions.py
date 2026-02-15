@@ -1,87 +1,20 @@
 """
 Action System for GenAI_DSS Multi-Agent Narrative.
 
-Defines scenario-specific actions, validates them, and executes them
-by updating world_state and character inventories.
+Open-ended action system — characters can perform ANY physical action
+that makes sense in context. The system categorizes and tracks them
+for world_state updates and memory propagation.
 """
 
 from typing import Dict, List, Optional, Tuple
 from .schemas import StoryState
 
-# Valid action types for the Rickshaw Accident scenario
-VALID_ACTIONS = {
-    "Give_Money": {
-        "description": "Hand over money to someone",
-        "requires_target": True,
-        "effects": "Transfers money from actor's inventory to target"
-    },
-    "Offer_Bribe": {
-        "description": "Offer chai-pani / bribe to someone",
-        "requires_target": True,
-        "effects": "Sets bribe_offered flag; target must respond"
-    },
-    "Write_Challan": {
-        "description": "Write an official traffic challan/ticket",
-        "requires_target": True,
-        "effects": "Official record created; pressure on target"
-    },
-    "Confiscate_Keys": {
-        "description": "Take someone's vehicle keys as leverage",
-        "requires_target": True,
-        "effects": "Target loses keys; cannot leave"
-    },
-    "Record_Video": {
-        "description": "Start recording the scene on phone",
-        "requires_target": False,
-        "effects": "Everyone becomes aware they are being recorded"
-    },
-    "Block_Vehicle": {
-        "description": "Physically block a vehicle from leaving",
-        "requires_target": True,
-        "effects": "Target's vehicle cannot move"
-    },
-    "Show_Item": {
-        "description": "Show an item to prove a point (empty wallet, damage, ID)",
-        "requires_target": False,
-        "effects": "Others see the item and react"
-    },
-    "Call_Contact": {
-        "description": "Call someone on phone (inspector, lawyer, family)",
-        "requires_target": False,
-        "effects": "Outside authority is now involved"
-    },
-    "Offer_Chai": {
-        "description": "Offer or bring chai to de-escalate",
-        "requires_target": False,
-        "effects": "Social gesture; tension may reduce"
-    },
-    "Sit_On_Ground": {
-        "description": "Sit on the ground in protest/despair",
-        "requires_target": False,
-        "effects": "Emotional pressure on others; crowd sympathy increases"
-    },
-}
-
-
-def get_available_actions_text() -> str:
-    """Return a formatted string of available actions for prompts."""
-    lines = []
-    for action_type, info in VALID_ACTIONS.items():
-        target_note = "(requires target)" if info["requires_target"] else "(no target needed)"
-        lines.append(f"- {action_type}: {info['description']} {target_note}")
-    return "\n".join(lines)
-
 
 def validate_action(action_type: str, actor: str, target: Optional[str],
                     state: StoryState) -> Tuple[bool, str]:
-    """Validate whether an action is allowed."""
-    if action_type not in VALID_ACTIONS:
-        return False, f"Unknown action type: {action_type}"
-
-    action_info = VALID_ACTIONS[action_type]
-
-    if action_info["requires_target"] and not target:
-        return False, f"{action_type} requires a target"
+    """Validate whether an action is allowed. Open-ended — any action type is valid."""
+    if not action_type or not action_type.strip():
+        return False, "Empty action type"
 
     if target and target not in state.character_profiles:
         return False, f"Unknown target: {target}"
@@ -96,60 +29,82 @@ def execute_action(action_type: str, actor: str, target: Optional[str],
                    description: str, state: StoryState) -> Dict:
     """
     Execute an action and return state updates.
+    Handles both known action patterns and free-form actions.
 
     Returns a dict with keys: world_state, character_memories, narration
     """
     updated_world = dict(state.world_state)
     updated_memories = dict(state.character_memories)
-    narration = ""
 
-    if action_type == "Give_Money":
+    # Normalize action type for matching
+    action_lower = action_type.lower().replace(" ", "_").replace("-", "_")
+
+    # Pattern-match common action categories for world_state updates
+    if "money" in action_lower or "pay" in action_lower or "give" in action_lower:
         updated_world["money_exchanged"] = True
         updated_world["money_from"] = actor
         updated_world["money_to"] = target
-        narration = f"{actor} hands over money to {target}."
+        narration = f"{actor} hands over money to {target}. {description}"
 
-    elif action_type == "Offer_Bribe":
+    elif "bribe" in action_lower or "chai_pani" in action_lower:
         updated_world["bribe_offered"] = True
         updated_world["bribe_from"] = actor
         updated_world["bribe_to"] = target
-        narration = f"{actor} subtly offers chai-pani to {target}."
+        narration = f"{actor} subtly offers chai-pani to {target}. {description}"
 
-    elif action_type == "Write_Challan":
+    elif "challan" in action_lower or "ticket" in action_lower or "fine" in action_lower:
         updated_world["challan_written"] = True
         updated_world["challan_target"] = target
-        narration = f"{actor} pulls out the challan book and begins writing a ticket for {target}."
+        narration = f"{actor} starts writing a challan for {target}. {description}"
 
-    elif action_type == "Confiscate_Keys":
+    elif "key" in action_lower or "confiscate" in action_lower or "snatch" in action_lower:
         updated_world["keys_confiscated"] = True
-        updated_world["keys_taken_from"] = target
-        narration = f"{actor} snatches {target}'s vehicle keys."
+        updated_world["keys_taken_from"] = target or actor
+        narration = f"{actor} snatches keys. {description}"
 
-    elif action_type == "Record_Video":
+    elif "record" in action_lower or "video" in action_lower or "film" in action_lower:
         updated_world["being_recorded"] = True
         updated_world["recorder"] = actor
-        narration = f"{actor} pulls out a phone and starts recording the whole scene."
+        narration = f"{actor} starts recording. {description}"
 
-    elif action_type == "Block_Vehicle":
+    elif "block" in action_lower or "stand_in_front" in action_lower:
         updated_world["vehicle_blocked"] = True
-        updated_world["vehicle_blocked_owner"] = target
-        narration = f"{actor} physically blocks {target}'s vehicle, preventing them from leaving."
+        updated_world["vehicle_blocked_by"] = actor
+        narration = f"{actor} physically blocks the way. {description}"
 
-    elif action_type == "Show_Item":
-        updated_world[f"{actor}_showed_item"] = True
-        narration = f"{actor} shows something to prove a point — {description}"
+    elif "show" in action_lower or "display" in action_lower or "hold_up" in action_lower:
+        updated_world[f"{actor}_showed_something"] = True
+        narration = f"{actor} shows something — {description}"
 
-    elif action_type == "Call_Contact":
-        updated_world[f"{actor}_called_contact"] = True
-        narration = f"{actor} pulls out a phone and makes a call — {description}"
+    elif "call" in action_lower or "phone" in action_lower or "dial" in action_lower:
+        updated_world[f"{actor}_made_call"] = True
+        narration = f"{actor} makes a call — {description}"
 
-    elif action_type == "Offer_Chai":
+    elif "chai" in action_lower or "tea" in action_lower:
         updated_world["chai_offered"] = True
-        narration = f"{actor} sends for chai, trying to calm everyone down."
+        narration = f"{actor} arranges chai. {description}"
 
-    elif action_type == "Sit_On_Ground":
-        updated_world[f"{actor}_sitting_on_ground"] = True
-        narration = f"{actor} slumps down on the road in despair, drawing sympathy from the crowd."
+    elif "sit" in action_lower or "ground" in action_lower or "collapse" in action_lower:
+        updated_world[f"{actor}_on_ground"] = True
+        narration = f"{actor} sits/collapses on the ground. {description}"
+
+    elif "push" in action_lower or "shove" in action_lower or "grab" in action_lower:
+        updated_world[f"physical_confrontation_{actor}"] = True
+        narration = f"{actor} gets physical — {description}"
+
+    elif "cry" in action_lower or "wail" in action_lower or "sob" in action_lower:
+        updated_world[f"{actor}_crying"] = True
+        narration = f"{actor} breaks down emotionally. {description}"
+
+    elif "whistle" in action_lower or "blow" in action_lower:
+        updated_world["whistle_blown"] = True
+        narration = f"{actor} blows whistle. {description}"
+
+    else:
+        # Free-form action — still tracked
+        safe_key = action_type.lower().replace(" ", "_")[:30]
+        updated_world[f"action_{safe_key}_{actor}"] = True
+        narration = f"{actor}: {description}"
 
     # Update memory for all characters about the action
     action_fact = f"[ACTION] {actor}: {action_type}" + (f" → {target}" if target else "") + f" ({description})"
