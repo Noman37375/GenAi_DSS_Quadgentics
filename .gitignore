@@ -15,6 +15,8 @@ downloads/
 eggs/
 .eggs/
 lib/
+# Allow frontend source lib (utils etc.)
+!Hackthon_Frontend_IBA/frontend/src/lib/
 lib64/
 parts/
 sdist/
